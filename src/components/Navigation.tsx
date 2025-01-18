@@ -13,9 +13,9 @@ export default function Navigation() {
       to={item.path}
       className={({ isActive }) =>
         clsx(
-          "text-2xl font-medium p-2 rounded-md",
+          "font-medium p-2 rounded-md",
           {
-            "dark:bg-gray-700": isActive,
+            "dark:bg-gray-700 bg-gray-100": isActive,
             "opacity-75 hover:opacity-100 transition-all duration-300": !isActive,
           }
         )
