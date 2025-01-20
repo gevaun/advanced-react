@@ -4,6 +4,16 @@ export interface MenuProps {
   children: React.ReactNode;
 }
 
+interface MenuContextType {
+  isOpen: boolean;
+  handleToggle: () => void;
+}
+
+const MenuContext = React.createContext<MenuContextType>({
+  isOpen: true,
+  handleToggle: () => {},
+});
+
 export default function Menu({ children }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -13,16 +23,10 @@ export default function Menu({ children }: MenuProps) {
   }
 
   return (
-    <div>
-      {React.Children.map(children as React.ReactElement[], (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, {
-            isOpen: isOpen as boolean,
-            onClick: handleToggle
-          });
-        }
-      })}
-    </div>
+    <MenuContext.Provider value={{ isOpen, handleToggle }}>
+      <div>{children}</div>
+    </MenuContext.Provider>
   );
 }
 
+export { MenuContext };
